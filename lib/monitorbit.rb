@@ -1,3 +1,4 @@
+require "monitorbit/railtie"
 require "monitorbit/version"
 
 module Monitorbit
