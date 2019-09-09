@@ -16,7 +16,6 @@
   "gnetId": null,
   "graphTooltip": 0,
   "id": 1,
-  "iteration": 1568017785230,
   "links": [],
   "panels": [
     {
@@ -34,6 +33,41 @@
       "type": "row"
     },
     {
+      "alert": {
+        "alertRuleTags": {},
+        "conditions": [
+          {
+            "evaluator": {
+              "params": [
+                90
+              ],
+              "type": "gt"
+            },
+            "operator": {
+              "type": "and"
+            },
+            "query": {
+              "params": [
+                "A",
+                "5m",
+                "now"
+              ]
+            },
+            "reducer": {
+              "params": [],
+              "type": "avg"
+            },
+            "type": "query"
+          }
+        ],
+        "executionErrorState": "alerting",
+        "for": "1m",
+        "frequency": "1m",
+        "handler": 1,
+        "name": "CPU Busy alert",
+        "noDataState": "no_data",
+        "notifications": []
+      },
       "aliasColors": {},
       "bars": false,
       "cacheTimeout": null,
@@ -83,7 +117,7 @@
           "format": "time_series",
           "hide": false,
           "intervalFactor": 1,
-          "legendFormat": "CPU usage",
+          "legendFormat": "Core {{cpu}}",
           "refId": "A",
           "step": 900
         }
@@ -91,11 +125,10 @@
       "thresholds": [
         {
           "colorMode": "critical",
-          "fill": false,
+          "fill": true,
           "line": true,
           "op": "gt",
-          "value": 90,
-          "yaxis": "left"
+          "value": 90
         }
       ],
       "timeFrom": null,
@@ -130,7 +163,7 @@
           "logBase": 1,
           "max": null,
           "min": null,
-          "show": true
+          "show": false
         }
       ],
       "yaxis": {
@@ -139,6 +172,41 @@
       }
     },
     {
+      "alert": {
+        "alertRuleTags": {},
+        "conditions": [
+          {
+            "evaluator": {
+              "params": [
+                90
+              ],
+              "type": "gt"
+            },
+            "operator": {
+              "type": "and"
+            },
+            "query": {
+              "params": [
+                "B",
+                "5m",
+                "now"
+              ]
+            },
+            "reducer": {
+              "params": [],
+              "type": "avg"
+            },
+            "type": "query"
+          }
+        ],
+        "executionErrorState": "alerting",
+        "for": "1m",
+        "frequency": "1m",
+        "handler": 1,
+        "name": "Used RAM Memory alert",
+        "noDataState": "no_data",
+        "notifications": []
+      },
       "aliasColors": {},
       "bars": false,
       "cacheTimeout": null,
@@ -196,10 +264,10 @@
       "thresholds": [
         {
           "colorMode": "critical",
-          "fill": false,
+          "fill": true,
           "line": true,
           "op": "gt",
-          "value": 93,
+          "value": 90,
           "yaxis": "left"
         }
       ],
@@ -245,6 +313,41 @@
       }
     },
     {
+      "alert": {
+        "alertRuleTags": {},
+        "conditions": [
+          {
+            "evaluator": {
+              "params": [
+                75
+              ],
+              "type": "gt"
+            },
+            "operator": {
+              "type": "and"
+            },
+            "query": {
+              "params": [
+                "A",
+                "5m",
+                "now"
+              ]
+            },
+            "reducer": {
+              "params": [],
+              "type": "avg"
+            },
+            "type": "query"
+          }
+        ],
+        "executionErrorState": "alerting",
+        "for": "1m",
+        "frequency": "1m",
+        "handler": 1,
+        "name": "Disk space usage alert",
+        "noDataState": "no_data",
+        "notifications": []
+      },
       "aliasColors": {},
       "bars": false,
       "cacheTimeout": null,
@@ -299,11 +402,10 @@
       "thresholds": [
         {
           "colorMode": "critical",
-          "fill": false,
+          "fill": true,
           "line": true,
           "op": "gt",
-          "value": 75,
-          "yaxis": "left"
+          "value": 75
         }
       ],
       "timeFrom": null,
