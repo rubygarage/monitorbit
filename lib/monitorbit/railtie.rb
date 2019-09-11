@@ -18,6 +18,27 @@ module Monitorbit
       Yabeda::Rails.install! unless ::Rails.const_defined?(:Server) || ::Rails.const_defined?('Puma::CLI')
     end
 
+    initializer 'monitorbit.set_up_4xx_5xx_errors' do |app|
+      Yabeda.configure do
+        group :monitorbit
+
+        counter :errors_total, comment: "A counter of the total number of 4xx and 5xx server responses."
+
+        ActiveSupport::Notifications.subscribe "monitorbit.4xx_5xx_errors" do |*args|
+          event = ActiveSupport::Notifications::Event.new(*args)
+          labels = {
+            path: event.payload[:path],
+            ip: event.payload[:ip],
+            params: event.payload[:params],
+            method: event.payload[:method],
+            status: event.payload[:status]
+          }
+
+          monitorbit_errors_total.increment(labels)
+        end
+      end
+    end
+
     generators do
       require_relative '../generators/monitorbit/install'
     end
