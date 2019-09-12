@@ -5,7 +5,7 @@ module Monitorbit
     end
 
     def add_middleware
-      gsub_file 'config.ru', 'run Rails.application', "use Monitorbit::RequestErrorsLayer\n\nrun Rails.application"
+      gsub_file 'config.ru', 'run Rails.application', "use Monitorbit::ErrorNotificationsLayer\n\nrun Rails.application"
     end
   end
 end
