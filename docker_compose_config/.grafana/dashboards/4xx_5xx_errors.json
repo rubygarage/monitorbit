@@ -15,7 +15,7 @@
   "editable": true,
   "gnetId": null,
   "graphTooltip": 0,
-  "id": 2,
+  "id": 1,
   "links": [],
   "panels": [
     {
@@ -74,7 +74,7 @@
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "400",
+      "title": "Client errors (4xx)",
       "tooltip": {
         "shared": true,
         "sort": 2,
@@ -169,7 +169,7 @@
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "500",
+      "title": "Server errors (5xx)",
       "tooltip": {
         "shared": true,
         "sort": 2,
@@ -234,7 +234,7 @@
     ]
   },
   "timezone": "",
-  "title": "RG 4xx/5xx errors",
+  "title": "Client(4xx) / Server(5xx) errors",
   "uid": "000000003",
-  "version": 2
+  "version": 1
 }
