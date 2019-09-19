@@ -33,4 +33,6 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'yabeda-prometheus'
   spec.add_dependency 'yabeda-puma-plugin'
   spec.add_dependency 'prometheus-client'
+
+  spec.add_development_dependency 'rspec'
 end
