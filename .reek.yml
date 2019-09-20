@@ -1,0 +1,7 @@
+detectors:
+  IrresponsibleModule:
+    enabled: false
+
+  FeatureEnvy:
+    exclude:
+      - Monitorbit::ErrorsNotificationsLayer#call
