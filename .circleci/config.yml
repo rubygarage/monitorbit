@@ -1,0 +1,76 @@
+defaults: &defaults
+  working_directory: ~/monitorbit
+  docker:
+    - image: circleci/ruby:2.6.4
+
+references:
+  install_bundler: &install_bundler
+    run:
+      name: Installing bundler
+      command: gem i bundler -v $(tail -1 Gemfile.lock | tr -d ' ')
+
+  restore_bundle_cache: &restore_bundle_cache
+    restore_cache:
+      keys:
+        - monitorbit-{{ checksum "Gemfile.lock" }}
+
+  bundle_install: &bundle_install
+    run:
+      name: Installing gems
+      command: bundle --deployment --jobs=$(nproc)
+
+  save_bundle_cache: &save_bundle_cache
+    save_cache:
+      key: monitorbit-{{ checksum "Gemfile.lock" }}
+      paths:
+        - vendor/bundle
+
+version: 2
+
+jobs:
+  linters:
+    <<: *defaults
+
+    steps:
+      - checkout
+
+      - <<: *install_bundler
+      - <<: *restore_bundle_cache
+      - <<: *bundle_install
+      - <<: *save_bundle_cache
+
+      - run:
+          name: Update overcommit config
+          command: bundle exec overcommit --sign && bundle exec overcommit --sign pre-commit
+
+      - run:
+          name: Running overcommit
+          command: |
+            bundle exec overcommit -s
+            SKIP=AuthorEmail,AuthorName bundle exec overcommit -r
+
+  tests:
+    <<: *defaults
+
+    steps:
+      - checkout
+
+      - <<: *install_bundler
+      - <<: *restore_bundle_cache
+      - <<: *bundle_install
+      - <<: *save_bundle_cache
+
+      - run:
+          name: Running tests
+          command: bundle exec rspec
+
+      - store_artifacts:
+          path: ~/monitorbit/coverage
+          destination: coverage
+
+workflows:
+  version: 2
+  build:
+    jobs:
+      - linters
+      - tests
