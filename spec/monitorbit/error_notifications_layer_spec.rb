@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'active_support'
 require 'rack'
 require 'monitorbit/errors_notifications_layer'
@@ -12,7 +14,9 @@ RSpec.describe Monitorbit::ErrorsNotificationsLayer do
     let(:env) { instance_double('env') }
 
     context 'when status is between 400 && 600' do
-      let(:request) { instance_double('request', path: 'path', ip: 'ip', params: 'params', request_method: 'request_method') }
+      let(:request) do
+        instance_double('request', path: 'path', ip: 'ip', params: 'params', request_method: 'request_method')
+      end
 
       it 'triggers monitorbit.4xx_5xx_errors event' do
         expect(app).to receive(:call).and_return(app_response)

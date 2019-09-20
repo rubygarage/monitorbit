@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'yabeda/rails'
 require 'yabeda/sidekiq'
 require 'yabeda/prometheus'
@@ -10,21 +12,21 @@ module Monitorbit
       app.middleware.use Yabeda::Prometheus::Exporter
     end
 
-    initializer 'monitorbit.set_up_sidekiq' do |app|
-      Sidekiq.configure_server { |config| Yabeda::Prometheus::Exporter.start_metrics_server! }
+    initializer 'monitorbit.set_up_sidekiq' do |_app|
+      Sidekiq.configure_server { |_config| Yabeda::Prometheus::Exporter.start_metrics_server! }
     end
 
-    initializer 'monitorbit.install_yabeda_rails' do |app|
+    initializer 'monitorbit.install_yabeda_rails' do |_app|
       Yabeda::Rails.install! unless ::Rails.const_defined?(:Server) || ::Rails.const_defined?('Puma::CLI')
     end
 
-    initializer 'monitorbit.set_up_4xx_5xx_errors' do |app|
+    initializer 'monitorbit.set_up_4xx_5xx_errors' do |_app|
       Yabeda.configure do
         group :monitorbit
 
-        counter :errors_total, comment: "A counter of the total number of 4xx and 5xx server responses."
+        counter :errors_total, comment: 'A counter of the total number of 4xx and 5xx server responses.'
 
-        ActiveSupport::Notifications.subscribe "monitorbit.4xx_5xx_errors" do |*args|
+        ActiveSupport::Notifications.subscribe 'monitorbit.4xx_5xx_errors' do |*args|
           event = ActiveSupport::Notifications::Event.new(*args)
           labels = {
             path: event.payload[:path],

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Monitorbit
   class Install < Rails::Generators::Base
     def create_initializer_file
@@ -5,7 +7,10 @@ module Monitorbit
     end
 
     def add_middleware
-      gsub_file 'config.ru', 'run Rails.application', "use Monitorbit::ErrorsNotificationsLayer\n\nrun Rails.application"
+      gsub_file(
+        'config.ru',
+        'run Rails.application', "use Monitorbit::ErrorsNotificationsLayer\n\nrun Rails.application"
+      )
     end
   end
 end
