@@ -13,7 +13,7 @@ RSpec.describe Monitorbit::ErrorsNotificationsLayer do
 
     let(:env) { instance_double('env') }
 
-    context 'when status is between 400 && 600' do
+    context 'when status is between 400 and 600' do
       let(:request) do
         instance_double('request', path: 'path', ip: 'ip', params: 'params', request_method: 'request_method')
       end
@@ -33,7 +33,7 @@ RSpec.describe Monitorbit::ErrorsNotificationsLayer do
       end
     end
 
-    context 'when status is not between 400 && 600' do
+    context 'when status is not between 400 and 600' do
       let(:status) { 200 }
 
       it 'does nothing' do
