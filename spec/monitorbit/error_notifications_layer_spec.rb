@@ -4,7 +4,7 @@ require 'monitorbit/errors_notifications_layer'
 
 RSpec.describe Monitorbit::ErrorsNotificationsLayer do
   describe '#call' do
-    let(:subject) { Monitorbit::ErrorsNotificationsLayer.new(app) }
+    let(:subject) { described_class.new(app) }
     let(:app) { instance_double('app') }
     let(:status) { 400 }
     let(:app_response) { [status, {}, []] }
