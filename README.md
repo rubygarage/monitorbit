@@ -1,6 +1,11 @@
 # Monitorbit
 Gem provides quick way to set up monitoring system for state of your application and node on which it's running.
 
+# How it works?
+The main purpose of monitorbit as gem - is exporting application metrics. Some exporting logic already exists within Yabeda gems which we are using and some logic we've added to provide additional metrics, we consider necessary for each application. After your application running, it's able to give its state and prometheus steps in. Prometheus scraps metrics from your application with preconfigured frequency, from preconfigured endpoints and stores them in its time-series database. Grafana in turn gets stored data within Prometheus database via PromQL and visualizes it.
+
+Configuring prometheus and grafana, especially creating charts from scratch could be a headache, so to save your time we've prepared some configuration. Firstly, docker-compose.yml contains configurations for running grafana, prometheus and node_exporter images. .grafana folder has configurations for dashboards, datasources and notifiers. It also contains 20 preconfigured charts, which you can use out of the box. .prometheus folder contains configuration for services and endpoints from which Prometheus have to scrap metrics and frequence of scraping
+
 Features:
   - monitoring puma(loading, threads capacity, etc.), sidekiq(successful / failed jobs, etc.), application state(slowest endpoints, 4xx/5xx errors count, etc.)
   - monitoring node state (CPU,- RAM-, SWAP-, Disk usage)
@@ -30,9 +35,11 @@ Right after running application with all ecosystem, you have 3 dashboards out of
     - Sidekiq jobs Retry Set by queue (Maximum number of job retries, grouped by quque)
     - Sedekiq jobs processed by queue (Number of processed jobs per second, grouped by queue)
     - Sidekiq jobs processed by job type (Number of processed jobs per second, grouped by job type)
+
 - Client(4xx) / Server(5xx) errors:
   - Client errors (4xx) (Number of 4xx errors, grouped by request method, path, status)
   - Server errors (5xx) (Number of 5xx errors, grouped by request method, path, status)
+
 - Node:
   - CPU Busy (CPU loading percentage, grouped by core)
   - Used RAM Memory (RAM memory usage percentage)
@@ -58,8 +65,7 @@ Or install it yourself as:
 
     $ rails g monitorbit:install
 
-    $ cp docker_compose_config/.grafana /$app_root
-    $ cp docker_compose_config/.prometheus /$app_root
+    $ cp -r monitorbit/docker_compose_config/{.grafana,.prometheus} /$app_root
 
 Add grafana, prometheus and node_exporter services, specified in our docker_compose_config/docker-compose.yml to your docker-compose.yml
 
