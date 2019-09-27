@@ -1,0 +1,87 @@
+version: "3.7"
+
+volumes:
+  postgres:
+  redis:
+  node_modules:
+
+services:
+  postgres:
+    image: postgres:11-alpine
+    ports:
+      - 5432:5432
+    volumes:
+      - postgres:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+
+  rails:
+    build: .
+    volumes:
+      - .:/app
+      - node_modules:/app/node_modules
+    ports:
+      - 3000:3000
+    environment:
+      REDIS_URL: redis://redis:6379/0
+    entrypoint: ./docker-entrypoint.sh
+    stdin_open: true
+    tty: true
+    depends_on:
+      - redis
+    command: bin/rails s -b 0.0.0.0 # bundle exec puma -C config/puma.rb
+
+  sidekiq:
+    build: .
+    volumes:
+      - .:/app
+      - node_modules:/app/node_modules
+    ports:
+      - 3001:3001
+    environment:
+      PORT: 3001
+      REDIS_URL: redis://redis:6379/0
+    depends_on:
+      - redis
+
+    command: sidekiq -C config/sidekiq.yml
+
+  redis:
+    image: redis
+    ports:
+      - 6379:6379
+    command: redis-server
+
+  monitorbit_stressor:
+    build: monitorbit_stressor
+    image: monitorbit_stressor
+    depends_on:
+      - rails
+
+  prometheus:
+    image: prom/prometheus:v2.12.0
+    ports:
+      - '9090:9090'
+    volumes:
+      - ./.prometheus:/etc/prometheus
+    depends_on:
+      - rails
+    command:
+      - --config.file=/etc/prometheus/config.yml
+
+  grafana:
+    image: grafana/grafana:6.3.5
+    depends_on:
+      - prometheus
+    ports:
+      - '5000:3000'
+    volumes:
+      - ./.grafana/provisioning/dashboards:/etc/grafana/provisioning/dashboards
+      - ./.grafana/provisioning/datasources:/etc/grafana/provisioning/datasources
+      - ./.grafana/provisioning/notifiers:/etc/grafana/provisioning/notifiers
+      - ./.grafana/dashboards:/var/lib/grafana/dashboards
+
+  node_exporter:
+    image: prom/node-exporter:v0.18.1
+    ports:
+      - '9100:9100'
