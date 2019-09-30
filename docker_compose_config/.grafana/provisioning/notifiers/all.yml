@@ -11,4 +11,4 @@ notifiers:
       url: https://hooks.slack.com/services/OIAYEJFKSL/KAFAJSDMG/LoAuRtEyHGAHFNhfDJAWQ # web_hook_url
       uploadImage: true
       recipient: grafana_alerts # channel / bot
-      token: xoxb-93817162366-918273645162-OfkAuQJrYAkFkAlDORoRiFkE # bot_token
+      token: xoxb-93817162366-918723258172-OfkQaUJrYAkFkAlDORoRiFkE # bot_token

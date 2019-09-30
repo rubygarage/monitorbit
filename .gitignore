@@ -6,3 +6,6 @@
 /pkg/
 /spec/reports/
 /tmp/
+/example_app/tmp/
+/example_app/log/
+/example_app/node_modules/

@@ -1,25 +1,18 @@
 # Monitorbit
 Gem provides quick way to set up monitoring system for state of your application and node on which it's running.
 
-# How it works?
-The main purpose of monitorbit as gem - is exporting application metrics. Some exporting logic already exists within Yabeda gems which we are using and some logic we've added to provide additional metrics, we consider necessary for each application. After your application running, it's able to give its state and prometheus steps in. Prometheus scraps metrics from your application with preconfigured frequency, from preconfigured endpoints and stores them in its time-series database. Grafana in turn gets stored data within Prometheus database via PromQL and visualizes it.
-
-Configuring prometheus and grafana, especially creating charts from scratch could be a headache, so to save your time we've prepared some configuration. Firstly, docker-compose.yml contains configurations for running grafana, prometheus and node_exporter images. .grafana folder has configurations for dashboards, datasources and notifiers. It also contains 20 preconfigured charts, which you can use out of the box. .prometheus folder contains configuration for services and endpoints from which Prometheus have to scrap metrics and frequence of scraping
-
-Features:
+## Features:
   - monitoring puma(loading, threads capacity, etc.), sidekiq(successful / failed jobs, etc.), application state(slowest endpoints, 4xx/5xx errors count, etc.)
   - monitoring node state (CPU,- RAM-, SWAP-, Disk usage)
   - warning notifications with captured chart images via slack channel
   - version controlled configurations for all ecosystem
 
-Monitorbit contains:
-  - Yabeda gems, exporting puma, sidekiq and rails metrics
-  - Middleware, exporting 4xx / 5xx errors' metrics
-  - Docker-compose configuration for running grafana, prometheus and node_exporter
-  - Prometheus and Grafana settings
-  - Preconfigured dashboards
+## How it works?
+The main purpose of monitorbit as gem - is exporting application metrics which could be scraped and visualized by external software like Prometheus and Grafana. Some exporting logic already exists within Yabeda gems which we are using and some logic we've added to provide additional metrics, we consider necessary for each application. After your application running, it's able to give its state and prometheus steps in. Prometheus scraps metrics from your application with preconfigured frequency, from preconfigured endpoints and stores them in its time-series database. Grafana in turn gets that data from Prometheus database via PromQL and visualizes it.
 
-Right after running application with all ecosystem, you have 3 dashboards out of the box:
+Configuring prometheus and grafana, especially creating charts from scratch could be a headache, so to save your time we've prepared some configuration. Firstly, docker-compose.yml contains configurations for running grafana, prometheus and node_exporter docker images. .grafana folder has configurations for dashboards, datasources and notifiers. It also contains 20 preconfigured charts, which you can use out of the box. .prometheus folder contains configuration for services and endpoints from which Prometheus would scrap metrics and frequence of scraping.
+
+## Preconfigured dashboards, you can use out of the box:
   - Rails:
     - Puma overload (Puma loading percentage)
     - Puma Metrics (Counters of max-, running- and capacity threads)
@@ -67,11 +60,25 @@ Or install it yourself as:
 
     $ cp -r monitorbit/docker_compose_config/{.grafana,.prometheus} /$app_root
 
-Add grafana, prometheus and node_exporter services, specified in our docker_compose_config/docker-compose.yml to your docker-compose.yml
+## Grafana, Prometheus and Node Exporter setup
+File monitorbit/docker_compose_config/docker-compose.yml has configurations, which you have to insert into your docker-compose.yml. Pay attention, check service names and port numbers.
 
 ## Grafana settings:
 ### Notifiers:
-You need to create application in slack account. It will give you ability to receive text notifications. If you waant to receive captured chart images, you need to create slack bot
+If you want to get alert notifications from your monitoring system to slack channel, follow these steps:
+  - Sign in into your slack account and create channel
+  - Navigate to https://api.slack.com/apps, type some name and and choose previously created channel in the drop-down list, submit the form
+  - Click 'Incoming Webhooks' link, switch checkbox to turn on incoming webhooks feature
+  - Click 'Add New Webhook to Workspace' button, select previously created channel in the drop-down list and submit the form
+  - Now you can copy generated webhook url from application settings page
+
+  - If you want to receive captured chart images, you need to create slack bot, so follow these steps:
+    - Navigate to your application's settings page (i.e. https://api.slack.com/apps/AB3F5KNZF)
+    - Click 'Bot Users' link in the nav menu and click 'Add a Bot User' button
+    - After you fill in the form, click the 'Add Bot User' button and then Save Changes
+    - Now you can copy Bot User OAuth Access Token (it looks like xoxb-93817162366-918723258172-OfkQaUJrYAkFkAlDORoRiFkE). Later you can get it in the page https://api.slack.com/apps/AB3F5KNZF/oauth (your link will have your APP_ID instead of AB3F5KNZF)
+
+You have to set webhook url and slak bot's token in the grafana's notifications configuration file
 settings file location - .grafana/provisioning/notifiers/all.yml
 
 keys to tweak:
@@ -90,7 +97,7 @@ keys to tweak:
 settings file location - .grafana/provisioning/dashboards/all.yml
 
 keys to tweak:
-  - path - check for matching value of that key with configured withing docker-compose.yml
+  - path - check for matching value of that key with configured within docker-compose.yml
 
 ## Prometheus settings:
 All, you need is to check job names and ports. They have to correspond those, specified within docker-compose.yml
