@@ -1,9 +1,9 @@
 GIT
   remote: https://github.com/rubygarage/monitorbit.git
-  revision: f1633cdd02eeaf928ad74b0a233e8f12e87b04e8
+  revision: de35066ccfe8f85083b3e27eb1d7750de8cdb20d
   branch: feature/peo-641
   specs:
-    monitorbit (0.1.0)
+    monitorbit (0.1.1)
       prometheus-client
       yabeda-prometheus
       yabeda-puma-plugin
