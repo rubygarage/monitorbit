@@ -4,7 +4,8 @@ class ThingsController < ApplicationController
   end
 
   def show
-    render json: Thing.find(params[:id]0)
+    id = Thing.ids.sample
+    render json: Thing.find(id)
   end
 
   def create
@@ -14,6 +15,6 @@ class ThingsController < ApplicationController
   private
 
   def thing_params
-    params.require(:name)
+    params.permit(:name)
   end
 end
