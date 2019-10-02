@@ -14,7 +14,7 @@ Monitorbit contains:
   - Prometheus and Grafana settings
   - Preconfigured dashboards
 
-Right after running application with all ecosystem, you have 3 dashboards out of the box:
+Right after running application with all ecosystem, you have 4 dashboards out of the box:
   - Rails:
     - Puma overload (Puma loading percentage)
     - Puma Metrics (Counters of max-, running- and capacity threads)
@@ -38,6 +38,8 @@ Right after running application with all ecosystem, you have 3 dashboards out of
   - Used RAM Memory (RAM memory usage percentage)
   - Disk space usage (Disk space usage percentage)
   - Used SWAP (SWAP usage percentage)
+- Slowest queries:
+  - Slowest queries (SQL queries, sorted by average execution time)
 
 ## Installation
 
