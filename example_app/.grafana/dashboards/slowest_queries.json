@@ -21,10 +21,6 @@
     {
       "columns": [
         {
-          "text": "Avg",
-          "value": "avg"
-        },
-        {
           "text": "Current",
           "value": "current"
         },
@@ -47,7 +43,7 @@
       },
       "id": 2,
       "options": {},
-      "pageSize": null,
+      "pageSize": 10,
       "scroll": true,
       "showHeader": true,
       "sort": {
@@ -169,5 +165,5 @@
   "timezone": "",
   "title": "Slowest queries",
   "uid": "000000004",
-  "version": 2
+  "version": 1
 }
