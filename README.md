@@ -39,7 +39,7 @@ Right after running application with all ecosystem, you have 4 dashboards out of
   - Disk space usage (Disk space usage percentage)
   - Used SWAP (SWAP usage percentage)
 - Slowest queries:
-  - Slowest queries (SQL queries, sorted by average execution time)
+  - Slowest queries (SQL queries, sorted by last query execution time)
 
 ## Installation
 
