@@ -1,7 +1,7 @@
 GIT
   remote: https://github.com/rubygarage/monitorbit.git
-  revision: 90f3775cc675169818c53689d1f91c266a07fc13
-  branch: feature/peo-566
+  revision: f1633cdd02eeaf928ad74b0a233e8f12e87b04e8
+  branch: feature/peo-641
   specs:
     monitorbit (0.1.0)
       prometheus-client
