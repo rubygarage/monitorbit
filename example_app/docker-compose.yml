@@ -80,6 +80,7 @@ services:
       - ./.grafana/provisioning/datasources:/etc/grafana/provisioning/datasources
       - ./.grafana/provisioning/notifiers:/etc/grafana/provisioning/notifiers
       - ./.grafana/dashboards:/var/lib/grafana/dashboards
+      - ./.grafana/plugins:/var/lib/grafana/plugins
 
   node_exporter:
     image: prom/node-exporter:v0.18.1
