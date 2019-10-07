@@ -11,7 +11,7 @@ gem 'webpacker'
 gem 'turbolinks'
 gem 'jbuilder'
 gem 'bootsnap', '>= 1.4.2', require: false
-gem 'monitorbit', git: 'https://github.com/rubygarage/monitorbit.git', branch: 'feature/peo-641'
+gem 'monitorbit', git: 'https://github.com/rubygarage/monitorbit.git', branch: 'develop'
 #
 group :development, :test do
   gem 'pry-rails'

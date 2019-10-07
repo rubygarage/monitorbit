@@ -1,7 +1,7 @@
 GIT
   remote: https://github.com/rubygarage/monitorbit.git
-  revision: de35066ccfe8f85083b3e27eb1d7750de8cdb20d
-  branch: feature/peo-641
+  revision: 5ba169ae86e28d217b0bb4979f3640f67b4691f9
+  branch: develop
   specs:
     monitorbit (0.1.1)
       prometheus-client
@@ -171,7 +171,7 @@ GEM
       sprockets (>= 2.8, < 4.0)
       sprockets-rails (>= 2.0, < 4.0)
       tilt (>= 1.1, < 3)
-    sidekiq (6.0.0)
+    sidekiq (6.0.1)
       connection_pool (>= 2.2.2)
       rack (>= 2.0.0)
       rack-protection (>= 2.0.0)
@@ -219,7 +219,7 @@ GEM
     yabeda-rails (0.1.3)
       rails
       yabeda
-    yabeda-sidekiq (0.1.3)
+    yabeda-sidekiq (0.1.4)
       sidekiq
       yabeda
     zeitwerk (2.1.10)
