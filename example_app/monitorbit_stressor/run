@@ -1,7 +1,10 @@
 #!/bin/sh
+random() {
+  echo $(tr -cd 0-9 </dev/urandom | head -c $1)
+}
+
 for i in $(seq 1 480); do
-  x=$(tr -cd 0-9 </dev/urandom | head -c 1)
-  result=$(echo "scale=0; $x * 5/10" | bc)
+  result=$(echo "scale=0; $(random 1) * 7/10" | bc)
   sleep 0.25
   case $result in
   0) curl http://rails:3000 > /dev/null;;
@@ -9,6 +12,8 @@ for i in $(seq 1 480); do
   2) curl http://rails:3000/client_errors > /dev/null;;
   3) curl http://rails:3000/server_errors > /dev/null;;
   4) curl http://rails:3000/things > /dev/null;;
+  5) curl http://rails:3000/things/$(echo "scale=0; $(random 1)" | bc) > /dev/null;;
+  6) curl -XPOST http://rails:3000/things -d name=$(random 7) > /dev/null;;
   esac
   echo $result
 done

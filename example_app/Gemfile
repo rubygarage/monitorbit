@@ -11,8 +11,8 @@ gem 'webpacker'
 gem 'turbolinks'
 gem 'jbuilder'
 gem 'bootsnap', '>= 1.4.2', require: false
-gem 'monitorbit', git: 'https://github.com/rubygarage/monitorbit.git', branch: 'feature/peo-565-setup-rspec'
-
+gem 'monitorbit', git: 'https://github.com/rubygarage/monitorbit.git', branch: 'feature/peo-641'
+#
 group :development, :test do
   gem 'pry-rails'
   gem 'pry-byebug'
