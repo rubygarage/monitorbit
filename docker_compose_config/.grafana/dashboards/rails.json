@@ -817,7 +817,7 @@
         {
           "decimals": 0,
           "format": "short",
-          "label": "Waiting jobs count",
+          "label": "",
           "logBase": 1,
           "max": null,
           "min": null,
@@ -1426,5 +1426,5 @@
   "timezone": "",
   "title": "Rails",
   "uid": "000000001",
-  "version": 5
+  "version": 1
 }

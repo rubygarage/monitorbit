@@ -1,3 +1,7 @@
+AllCops:
+  Exclude:
+    - 'example_app/**/*'
+
 Metrics/LineLength:
   Max: 120
 

@@ -1,0 +1,14 @@
+notifiers:
+  - name: slack-notification-channel
+    type: slack
+    uid: 1
+    org_id: 1
+    is_default: true
+    send_reminder: true
+    frequency: 1m
+    disable_resolve_message: false
+    settings:
+      url: https://hooks.slack.com/services/OIAYEJFKSL/KAFAJSDMG/LoAuRtEyHGAHFNhfDJAWQ # web_hook_url
+      uploadImage: true
+      recipient: grafana_alerts # channel / bot
+      token: xoxb-93817162366-918273645162-OfkAuQJrYAkFkAlDORoRiFkE # bot_token

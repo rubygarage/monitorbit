@@ -5,3 +5,5 @@ detectors:
   FeatureEnvy:
     exclude:
       - Monitorbit::ErrorsNotificationsLayer#call
+exclude_paths:
+  - example_app/
